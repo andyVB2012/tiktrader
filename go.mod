@@ -1,4 +1,4 @@
-module main
+module github.com/andyVB2012/tiktrader
 
 go 1.21.4
 
