@@ -3,9 +3,10 @@ package main
 import (
 	"context"
 	"encoding/json"
-	"main/mytypes"
 	"math/rand"
 	"net/http"
+
+	"github.com/andyVB2012/tiktrader/mytypes"
 )
 
 type JSONAPIServer struct {
