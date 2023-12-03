@@ -38,7 +38,7 @@ func New(endpoint string) *Client {
 func (c *Client) FetchPrice(ctx context.Context, ticker string) (*mytypes.PriceResponse, error) {
 	endpoint := fmt.Sprintf("%s?ticker=%s", c.endpoint, ticker)
 	fmt.Println(endpoint)
-	req, err := http.NewRequest("get", endpoint, nil)
+	req, err := http.NewRequest("GET", endpoint, nil)
 	if err != nil {
 		return nil, err
 	}
