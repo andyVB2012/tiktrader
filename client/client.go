@@ -7,7 +7,23 @@ import (
 	"net/http"
 
 	"github.com/andyVB2012/tiktrader/mytypes"
+	"github.com/andyVB2012/tiktrader/proto"
+	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials/insecure"
 )
+
+//	type Client interface {
+//		FetchPrice(ctx context.Context, ticker string) (*mytypes.PriceResponse, error)
+//	}
+
+func NewGRPCClient(remoteAddr string) (proto.PriceFetcherClient, error) {
+	conn, err := grpc.Dial(remoteAddr, grpc.WithTransportCredentials(insecure.NewCredentials()))
+	if err != nil {
+		return nil, err
+	}
+	client := proto.NewPriceFetcherClient(conn)
+	return client, nil
+}
 
 type Client struct {
 	endpoint string
