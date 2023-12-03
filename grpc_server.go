@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"math/rand"
 	"net"
 
 	"github.com/andyVB2012/tiktrader/proto"
@@ -33,6 +34,8 @@ func NewGRPCPriceService(svc PriceFetcher) *GRPCPriceFetcherServer {
 }
 
 func (s *GRPCPriceFetcherServer) FetchPrice(ctx context.Context, req *proto.PriceRequest) (*proto.PriceResponse, error) {
+	reqId := rand.Intn(10000)
+	ctx = context.WithValue(ctx, "requestID", reqId)
 	price, err := s.svc.FetchPrice(ctx, req.Ticker)
 	if err != nil {
 		return nil, err

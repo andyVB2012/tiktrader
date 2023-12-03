@@ -20,8 +20,13 @@ var priceMocks = map[string]float64{
 	"STFX": 1,
 }
 
-func (s *priceFetcher) FetchPrice(ctx context.Context, ticker string) (float64, error) {
-	return MockPriceFetcher(ctx, ticker)
+func (s *priceFetcher) FetchPrice(_ context.Context, ticker string) (float64, error) {
+	price, ok := priceMocks[ticker]
+	if !ok {
+		return 0.0, fmt.Errorf("price for ticker (%s) is not available", ticker)
+	}
+
+	return price, nil
 }
 
 func MockPriceFetcher(ctx context.Context, ticker string) (float64, error) {
